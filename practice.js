@@ -50,3 +50,14 @@ for (i=0;i<arr1.length;i++)
 // ============================================================
 
 
+var person = {};
+person.name = "Anwar Moazam";
+person.name;
+var who = person.name;
+console.log(person);
+console.log(who);
+who.story;
+console.log(who);
+
+var person1 = {name: "Uzair"};
+console.log(person1);
