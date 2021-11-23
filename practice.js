@@ -156,3 +156,307 @@ const makeBroken = function(item){
 // const brokenWeapons = _.map(weapons,makeBroken);
 
 // console.log(brokenWeapons);
+
+function checkScope(){
+
+	describe('Scope Exercises', function () {
+
+		var ACTUAL;
+
+		beforeEach(function (){
+			ACTUAL = null;
+		});
+
+		it('a function has access to its own local scope variables', function () {
+			var fn = function () {
+				var name = 'inner';
+				ACTUAL = name;
+			};
+			fn();
+			expect(ACTUAL === 'inner').to.be.true;
+		});
+
+		it('inputs to a function are treated as local scope variables', function (){
+            var fn = function (name) {
+                ACTUAL = name;
+            };
+            fn('inner');
+            expect(ACTUAL === '???').to.be.true;
+        });
+
+        it('blocks scope can be created with let', function () {
+            var fn = function () {
+                var where = 'outer'
+                {
+                    let where = 'inner'
+                }
+                ACTUAL = where
+            };
+            fn();
+            expect(ACTUAL === '???').to.be.true;
+        });
+
+        it('a function has access to the variables contained within the same scope that function was creted in', function () {
+            var name = 'outer';
+            var fn = function () {
+                var name = 'outer';
+                var fn = function () {
+                    ACTUAL = name;
+                };
+                fn();
+                expect(ACTUAL === '???').to.be.true;
+        }
+    });
+
+        it('a function\'s local scope variables are not available outside that function',function () {
+            var firstFn = function () {
+                var localToFirstFn = 'inner';
+            };
+            firstFn();
+            expect(function () {
+                ACTUAL = localToFirstFn;
+            }).to.throw();
+            expect(ACTUAL === '???').to.be.true;
+        });
+
+        it('a function\'s local scope variables are not available anywhere outside that function, regardless of the context it\'s called in', function () {
+            var firstFn = function () {
+                secondFn();
+            };
+            var secondFn = function () {
+                ACTUAL = localToFirstFn
+            };
+            expect(function () {
+                secondFn();
+            }).to.throw();
+            expect(function () {
+                firstFn();
+            })
+
+        })
+
+
+
+	})
+};
+
+
+const newClue = (name) => {
+    const length = name.length;
+
+    return (weapon) => {
+        let clue = length + weapon.length;
+        return !!(clue %1);
+    };
+};
+
+console.log(newClue(['anwar']));
+
+const ifElse = (condition, isTrue, isFalse) => {
+    return condition ? isTrue() : isFalse();
+};
+
+
+console.log(ifElse(true, () => {console.log(true);}, () => {console.log(false);}))
+
+const ifElse1 = (condition, isTrue, isFalse) => {
+    return condition ? isTrue() : isFalse();
+}
+
+const logTrue = () => {console.log(true);};
+const logFalse = () => {console.log(false);};
+
+console.log(ifElse1(true, logTrue, logFalse));
+
+var doMathSoIDontHaveTo = function(n, func) {return func(n); };
+
+var square = function(n) {return n*n; };
+
+var increment = function(n) {return n+1; };
+
+console.log(doMathSoIDontHaveTo(5, square));
+console.log(doMathSoIDontHaveTo(2, increment));
+
+// output not come
+/* const ifElse2 = (condition, isTrue, isFalse, p) => {
+    return condition ? isTrue(p) : isFalse(p);
+};
+
+const fn1 = () => {console.log(true);};
+const fn2 = () => {console.log(false);};
+
+console.log(ifElse2(true, fn1, fn2, 'Hi'));
+*/
+
+const ifElse3 = (condition, isTrue, isFalse, ...args) => {
+    console.log()
+    return condition ? isTrue(...args) : isFalse(...args);
+};
+
+// const isTrue = () => {console.log(true);};
+// const isFalse = () => {console.log(false);};
+
+// console.log(ifElse3(true, fn1, fn2, 'Hi', 'bye'));
+
+const ifElse4 = (condition, isTrue, isFalse) => {
+    const args = [].slice.call(arguments, 3)
+    return condition ? isTrue.apply(this, args) : isFalse.apply(this, args);
+};
+
+const logTrue1 = (msgs) => {console.log(msgs);};
+const logFalse1 = (msgs) => {console.log(msgs);};
+
+console.log(ifElse3(true, logTrue1, logFalse1));
+
+const reduce = function(list, cb, initial) {
+    let memo = initial;
+    for (let i=0; i<list.length; i++){
+        if (i === 0 && memo === undefined) {
+            memo = list[0];
+            i++;
+        } else {
+            memo = cb(list[i], memo)
+        }
+    }
+    return memo;
+}
+
+console.log(reduce([3,4,3], (v, sum) => v + sum, 0)); 
+
+const newDevelopment = [
+    {
+        name: 'Miss Scarlet',
+        present: true,
+        rooms: [
+            {kitchen: false},
+            {ballroom: false},
+            {conservatory: true},
+            {'dining room': true},
+            {'billiard room': false},
+            {library: true}
+        ]
+    },
+    {
+        name: 'Miss Scarlet',
+        present: true,
+        rooms: [
+            {kitchen: false},
+            {ballroom: false},
+            {conservatory: true},
+            {'dining room': true},
+            {'billiard room': false},
+            {library: true}
+        ]
+    },
+]
+
+const consider = (name) => {
+    return `I think it could be... ${name}`;
+};
+
+const exclaim = (statement) => {
+    return `${statement.toUpperCase()}!`;
+};
+
+const blame = (str) => {return str};
+
+// console.log(blame('you'));
+
+const myAlert = () => {
+    const x = "Help! I think i found a clue!";
+    const alerter = () => {
+        alert(x);
+    };
+
+    setTimeout(alerter, 1000);
+    console.log("What happens first? this log or the alert?");
+};
+
+// myAlert();
+
+
+
+const myAlert1 = () => {
+    const x = "Help! I think i found a clue!";
+    let count = 0;
+    const alerter = () => {
+        alert(`${x} ${++count}`);
+    };
+
+    return alerter;
+};
+
+myAlert1();
+
+
+const funcAlert = myAlert1();
+// const funcAlert2 = myAlert1();
+
+// funcAlert();
+// funcAlert();
+
+// funcAlert2();
+
+const newClue1 = (name) => {
+    const length = name.length;
+
+    return (weapon) => {
+        let clue = length + weapon.length;
+        return !!(clue % 1);
+    };
+};
+
+const didAnwarDoItWithA = newClue1('anwar');
+
+console.log(didAnwarDoItWithA);
+console.log(didAnwarDoItWithA('candlestick'));
+
+var scope = 'Global scope';
+function checkScope() {
+    var scope = 'Local scope';
+    function innerFunc(){
+        return scope;
+    };
+    return innerFunc;
+};
+
+var test = checkScope();
+console.log(test);
+console.log(test());
+
+function findSomeOne() {
+    function speak() {
+        console.log(who);
+    }
+    let who = 'Why hello there, Professor Plum';
+    return speak();
+}
+
+console.log(findSomeOne());
+
+
+const makeTimer = () => {
+    let elapsed = 0;
+
+    const stopwatch = () => { return elapsed; };
+
+    const increase = () => elapsed++;
+
+    setInterval(increase, 5000);
+
+    return stopwatch;
+};
+
+let timer = makeTimer();
+
+// console.log(timer());
+
+const curry = (fn) => {
+    return (arg) => {
+        return (arg2) => {
+            return fn(arg, arg2);
+        }
+    }
+}
+
+console.log(curry());
