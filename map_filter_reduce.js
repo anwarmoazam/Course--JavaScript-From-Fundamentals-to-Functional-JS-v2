@@ -40,6 +40,7 @@ console.log("Example of Filter function")
 const findOdd = (x) => x%2;
 const findEven = (x) => x%2==0;
 const greaterThan4 =  (x) => x>4;
+const ageGreaterThan25 = (x) => x.age>=50;
 
 output = arr.filter(findOdd);
 console.log('Odd Numbers are : ',output);
@@ -49,6 +50,9 @@ console.log('Even Numbers are : ',output);
 
 output = arr.filter(greaterThan4);
 console.log('Numbers greater than 4 are : ',output);
+
+output = users.filter(ageGreaterThan25);
+console.log('Age is greater than 25 : ',output)
 
 console.log("Example of Reduce function");
 
@@ -64,11 +68,20 @@ const findGreater = (acc,max) => {
     return max;
 }
 
+const numberOfUsersAgeWise = (acc,curr) => {
+    if(acc[curr.age]){
+        acc[curr.age] = ++acc[curr.age];
+    } else{
+        acc[curr.age] = 1;
+    }
+    return acc;
+}
+
 output = arr.reduce(findSum,0);
 console.log('Sum of elements is : ',output);
 
 output = arr.reduce(findGreater,0);
 console.log('Greater elements is : ',output);
 
-
-
+output = users.reduce(numberOfUsersAgeWise,{});
+console.log('Age wise number of Users are : ',output);
