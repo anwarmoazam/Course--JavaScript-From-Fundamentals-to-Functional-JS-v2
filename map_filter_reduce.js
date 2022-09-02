@@ -1,5 +1,46 @@
 console.log("Map, Filter and Reduce Exercise");
 
+let data = [
+    {
+        "id": "0001",
+        "type": "donut",
+        "name": "Cake",
+        "image":
+            {
+                "url": "images/0001.jpg",
+                "width": 200,
+                "height": 200
+            },
+        "thumbnail":
+            {
+                "url": "images/thumbnails/0001.jpg",
+                "width": 32,
+                "height": 32
+            }
+    },
+    {
+        "id": "0002",
+        "type": "pinapple",
+        "name": "Cake",
+        "image":
+            {
+                "url": "images/0001.jpg",
+                "width": 200,
+                "height": 200
+            },
+        "thumbnail":
+            {
+                "url": "images/thumbnails/0001.jpg",
+                "width": 32,
+                "height": 32
+            }
+    },
+]
+
+for(let item of data){
+    console.log(item);
+}
+
 const arr = [5,1,3,2,6];
 
 const users = [
